@@ -1,37 +1,65 @@
-import React from 'react';
-import {Coin} from '../types/coins.types';
+import React, {useCallback} from 'react';
+import Coin from './Coin';
+import {CoinsProps} from '../types/coins.types';
 
-interface ViewProps {
-	coins: Coin[];
-	favorites: string[];
-}
+const Coins: React.FC<CoinsProps> = ({
+  perPage,
+  page,
+  favorites,
+  coins,
+  loading,
+  onPageChange,
+  onPerPageChange,
+  onFavoriteToggle,
+}) => {
+	const handlePrevPage = useCallback(() => {
+		onPageChange(page - 1);
+	}, [page, onPageChange]);
 
-const View: React.FC<ViewProps> = ({ coins, favorites }) => {
+	const handleNextPage = useCallback(() => {
+		onPageChange(page + 1);
+	}, [page, onPageChange]);
+
+	const handlePerPageChange = useCallback(
+		(event: React.ChangeEvent<HTMLSelectElement>) => {
+			onPerPageChange(Number(event.target.value));
+		},
+		[onPerPageChange]
+	);
+
+	const handleFavoriteToggle = useCallback(
+		(coinId: string) => {
+			onFavoriteToggle(coinId);
+		},
+		[onFavoriteToggle]
+	);
+
+	if (loading) {
+		return <div>Loading...</div>;
+	}
+
 	return (
 		<div>
-			<h2>Cryptocurrency Tracker</h2>
-			<ul>
-				{coins.map((coin) => (
-					<li key={coin.id}>
-						<div>
-							<span>Name: {coin.name}</span>
-							<span>Symbol: {coin.symbol}</span>
-							<span>Price: {coin.current_price}</span>
-							<span>Market Cap Rank: {coin.market_cap_rank}</span>
-							<span>
-                Favorite:
-                <input
-	                type="checkbox"
-	                checked={favorites.includes(coin.id)}
-	                onChange={() => {}}
-                />
-              </span>
-						</div>
-					</li>
-				))}
-			</ul>
+			<h1>Cryptocurrency Tracker</h1>
+			<div>
+				<label>Per Page:</label>
+				<select value={perPage} onChange={handlePerPageChange}>
+					<option value={10}>10</option>
+					<option value={20}>20</option>
+					<option value={30}>30</option>
+				</select>
+			</div>
+
+			<Coin coins={coins} favorites={favorites} onFavoriteToggle={handleFavoriteToggle} />
+
+			<div>
+				<button onClick={handlePrevPage} disabled={page === 1}>
+					Prev
+				</button>
+				<button onClick={handleNextPage}>Next</button>
+			</div>
 		</div>
 	);
 };
 
-export default View;
+export default React.memo(Coins);

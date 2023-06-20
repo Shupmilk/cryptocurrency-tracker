@@ -1,0 +1,30 @@
+.card {
+    display: grid;
+    align-items: center;
+    grid-template-columns: 50px repeat(4, 1fr) 45px;
+    background: #343434;
+    color: antiquewhite;
+    grid-gap: 10px;
+    margin-bottom: 5px;
+    border-radius: 4px;
+    padding: 10px;
+}
+
+.card__item {
+    display: flex;
+    padding: 10px;
+    background: #666;
+}
+
+.card__item_image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+@media (min-width: 768px) {
+    .card {
+        grid-template-columns: 50px repeat(4, 1fr) 45px;
+    }
+}
