@@ -56,16 +56,14 @@ const App: React.FC = () => {
 
 	return (
 		<main>
-			<section style={{ maxWidth: '1200px', width: '100%', margin: '0 auto', }}>
-				<Coins
-					page={page}
-					loading={loading}
-					onPageChange={handlePageChange}
-					coins={coins}
-					onFavoriteToggle={handleFavoriteToggle}
-					favorites={favorites}
-				/>
-			</section>
+			<Coins
+				page={page}
+				loading={loading}
+				onPageChange={handlePageChange}
+				coins={coins}
+				onFavoriteToggle={handleFavoriteToggle}
+				favorites={favorites}
+			/>
 		</main>
 	);
 };

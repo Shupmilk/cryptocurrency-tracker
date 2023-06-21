@@ -27,6 +27,7 @@ main {
   cursor: pointer;
   padding: 12px 15px;
   transition: all .25s;
+  min-width: 150px;
 }
 
 .button:hover {
@@ -43,4 +44,8 @@ main {
   background: transparent;
   color: #F7931A;
   cursor: initial;
+}
+
+.button + .button {
+  margin-left: 10px;
 }

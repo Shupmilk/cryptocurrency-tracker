@@ -30,8 +30,8 @@ const Coins: React.FC<CoinsProps> = ({
 	if (loading) return <Loading />
 
 	return (
-		<div className="coins">
-			<h1>Cryptocurrency Tracker</h1>
+		<section className="coins">
+			<h1 className="coins__title">Cryptocurrency Tracker</h1>
 
 			<Coin coins={coins} favorites={favorites} onFavoriteToggle={handleFavoriteToggle} />
 
@@ -41,7 +41,7 @@ const Coins: React.FC<CoinsProps> = ({
 				</button>
 				<button onClick={handleNextPage} className="button">Next</button>
 			</div>
-		</div>
+		</section>
 	);
 };
 
