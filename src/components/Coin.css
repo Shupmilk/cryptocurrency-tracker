@@ -1,10 +1,17 @@
 .coin {
     overflow: auto;
-    height: 600px;
+    height: 300px;
     position: relative;
     background: #13161f;
     border-radius: 4px;
     border: 1px solid #583912;
+    transition: all .3s;
+}
+
+@media (min-width: 768px) {
+    .coin {
+        height: 600px;
+    }
 }
 
 .coin__button {
@@ -30,7 +37,7 @@
     margin-bottom: 1px;
     border-radius: 4px;
     padding: 10px;
-    min-width: 700px;
+    min-width: 760px;
     transition: all .1s;
 }
 
@@ -50,6 +57,7 @@
     right: 0;
     width: 100%;
     color: #F7931A;
+    z-index: 1;
 }
 
 .coin__item {
