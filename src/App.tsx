@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect, useCallback, useMemo} from 'react';
+import { debounce } from 'lodash';
 import Coins from './components/Coins';
 import { CoinTypes } from './types/coin.types';
 
@@ -10,6 +11,8 @@ const App: React.FC = () => {
 	});
 	const [coins, setCoins] = useState<CoinTypes[]>([]);
 	const [loading, setLoading] = useState(true);
+	const [searchTerm, setSearchTerm] = useState<string>('');
+
 
 
 	useEffect(() => {
@@ -54,15 +57,37 @@ const App: React.FC = () => {
 		}
 	};
 
+	const throttledHandleSearchChange = debounce((value: string) => {
+		setSearchTerm(value);
+	}, 100);
+
+	const handleSearchChange = useCallback(
+		(event: React.ChangeEvent<HTMLInputElement>) => {
+			const { value } = event.target;
+			throttledHandleSearchChange(value);
+		},
+		[throttledHandleSearchChange]
+	);
+
+	const filteredCoins = useMemo(
+		() =>
+			coins.filter((coin) =>
+				coin.name.toLowerCase().includes(searchTerm.toLowerCase())
+			),
+		[coins, searchTerm]
+	);
+
 	return (
 		<main>
 			<Coins
 				page={page}
 				loading={loading}
 				onPageChange={handlePageChange}
-				coins={coins}
+				coins={filteredCoins}
 				onFavoriteToggle={handleFavoriteToggle}
 				favorites={favorites}
+				searchTerm={searchTerm}
+				handleSearchChange={handleSearchChange}
 			/>
 		</main>
 	);

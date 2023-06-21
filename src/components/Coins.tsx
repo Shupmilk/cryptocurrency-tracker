@@ -5,12 +5,14 @@ import {Loading} from './Loading';
 import './Coins.css'
 
 const Coins: React.FC<CoinsProps> = ({
-  page,
-  favorites,
-  coins,
-  loading,
-  onPageChange,
-  onFavoriteToggle,
+	page,
+	favorites,
+	coins,
+	loading,
+	onPageChange,
+	onFavoriteToggle,
+	searchTerm,
+	handleSearchChange,
 }) => {
 	const handlePrevPage = useCallback(() => {
 		onPageChange(page - 1);
@@ -32,6 +34,14 @@ const Coins: React.FC<CoinsProps> = ({
 	return (
 		<section className="coins">
 			<h1 className="coins__title">Cryptocurrency Tracker</h1>
+
+			<input
+				type="text"
+				value={searchTerm}
+				onChange={handleSearchChange}
+				placeholder="Search by name"
+				className="coins__input"
+			/>
 
 			<Coin coins={coins} favorites={favorites} onFavoriteToggle={handleFavoriteToggle} />
 
