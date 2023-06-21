@@ -1,15 +1,15 @@
 import React, {useCallback} from 'react';
-import Coin from './Coin';
 import {CoinsProps} from '../types/coins.types';
+import Coin from './Coin';
+import {Loading} from './Loading';
+import './Coins.css'
 
 const Coins: React.FC<CoinsProps> = ({
-  perPage,
   page,
   favorites,
   coins,
   loading,
   onPageChange,
-  onPerPageChange,
   onFavoriteToggle,
 }) => {
 	const handlePrevPage = useCallback(() => {
@@ -20,13 +20,6 @@ const Coins: React.FC<CoinsProps> = ({
 		onPageChange(page + 1);
 	}, [page, onPageChange]);
 
-	const handlePerPageChange = useCallback(
-		(event: React.ChangeEvent<HTMLSelectElement>) => {
-			onPerPageChange(Number(event.target.value));
-		},
-		[onPerPageChange]
-	);
-
 	const handleFavoriteToggle = useCallback(
 		(coinId: string) => {
 			onFavoriteToggle(coinId);
@@ -34,29 +27,19 @@ const Coins: React.FC<CoinsProps> = ({
 		[onFavoriteToggle]
 	);
 
-	if (loading) {
-		return <div>Loading...</div>;
-	}
+	if (loading) return <Loading />
 
 	return (
-		<div>
+		<div className="coins">
 			<h1>Cryptocurrency Tracker</h1>
-			<div>
-				<label>Per Page:</label>
-				<select value={perPage} onChange={handlePerPageChange}>
-					<option value={10}>10</option>
-					<option value={20}>20</option>
-					<option value={30}>30</option>
-				</select>
-			</div>
 
 			<Coin coins={coins} favorites={favorites} onFavoriteToggle={handleFavoriteToggle} />
 
-			<div>
-				<button onClick={handlePrevPage} disabled={page === 1}>
+			<div className="coins__actions">
+				<button onClick={handlePrevPage} disabled={page === 1} className="button">
 					Prev
 				</button>
-				<button onClick={handleNextPage}>Next</button>
+				<button onClick={handleNextPage} className="button">Next</button>
 			</div>
 		</div>
 	);

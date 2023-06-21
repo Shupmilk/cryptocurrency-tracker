@@ -1,13 +1,57 @@
+.coin {
+    overflow: auto;
+    height: 600px;
+    position: relative;
+    background: #13161f;
+    border-radius: 4px;
+    border: 1px solid #583912;
+}
+
 .coin__button {
     border: none;
     background: transparent;
     cursor: pointer;
     padding: 0;
-    margin: 0;
+    margin: 0 0 0 5px;
     transition: .3s;
 }
 
 .coin__button:hover {
     opacity: .5;
     transform: scale(1.3);
+}
+
+.coin-container {
+    display: grid;
+    align-items: center;
+    grid-template-columns: 50px repeat(4, 1fr);
+    color: #fff;
+    grid-gap: 10px;
+    margin-bottom: 1px;
+    border-radius: 4px;
+    padding: 10px;
+    min-width: 700px;
+    transition: all .1s;
+}
+
+.card.coin-container:nth-child(even) {
+    background: #090C14;
+}
+
+.card.coin-container:hover {
+    background: #1d2536;
+}
+
+.coin__header {
+    background: #000;
+    position: sticky;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    color: #F7931A;
+}
+
+.coin__item {
+    padding: 0 10px;
 }

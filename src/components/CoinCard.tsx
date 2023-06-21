@@ -5,18 +5,22 @@ import './CoinCard.css';
 export type CoinCardTypes = {
 	coin: CoinTypes,
 	children: ReactNode,
+	className?: string,
 }
 
-export const CoinCard = ({coin, children}: CoinCardTypes) => (
-	<div className="card">
-		<span className="card__item card__item_image">
+export const CoinCard = ({coin, children, className}: CoinCardTypes) => (
+	<div className={`card ${className}`}>
+		<div className="card__item card__item_image">
 			<img src={coin.image} alt={coin.name} width='30px' />
-		</span>
-		<span className="card__item">Name: {coin.name}</span>
-		<span className="card__item">Symbol: {coin.symbol}</span>
-		<span className="card__item">Price: {coin.current_price}</span>
-		<span className="card__item">Market Cap Rank: {coin.market_cap_rank}</span>
+		</div>
+		<div className="card__item">
+			<span>{coin.name}</span>
+			{children}
+		</div>
+		<div className="card__item">{coin.symbol}</div>
+		<div className="card__item">{coin.current_price}</div>
+		<div className="card__item">{coin.price_change_percentage_24h}%</div>
 
-		{children}
+
 	</div>
 );
